@@ -2,6 +2,7 @@ import "../App.css";
 import React from "react";
 import Graph from "./Graph";
 import CypherMirror from "./CypherMirror";
+import DataNavBar from "./DataNavBar";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -18,10 +19,13 @@ class BrowserLayout extends React.Component {
       <>
         <Container fluid>
           <Row>
+            <Col xs={2} sm={1} id="nav-wrapper">
+              <DataNavBar />
+            </Col>
             <Col xs={12} md={8} id="graph-wrapper">
               <Graph />
             </Col>
-            <Col xs={6} md={4}>
+            <Col xs={6} md={3}>
               <div id="properties-wrapper">
                 <h3>Properties</h3>
               </div>
@@ -36,8 +40,16 @@ class BrowserLayout extends React.Component {
             </Col>
           </Row>
           <Row>
-            <Col xs={8}>foo</Col>
-            <Col xs={4}>bar</Col>
+            <Col xs={8}>
+              <div id="history-wrapper">
+                <h3>Command History</h3>
+              </div>
+            </Col>
+            <Col xs={4}>
+              <div id="message-wrapper">
+                <h3>Message Panel</h3>
+              </div>
+            </Col>
           </Row>
         </Container>
       </>
