@@ -2,7 +2,6 @@ import '../App.css';
 import React  from 'react';
 import Graph from './Graph'
 import CypherMirror from './CypherMirror'
-import Properties from './Properties'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -10,24 +9,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 class BrowserLayout extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {data: null, nodeData:null, eventData:null, linkData:null};
-    }
-
-    nodeClick = async (node, _event) => {
-      console.log("Node", node);
-      console.log("Event", _event);
-
-      this.setState({eventData: _event, nodeData: node, linkData: null}, () =>{
-        console.log(this.state);
-      }) ;
-    }
-
-    linkClick = (node, _event) => {
-      console.log("rNode", node);
-      console.log("rEvent", _event);
-      this.setState({eventData: _event});
+    constructor(...args) {
+        super(...args);
+        this.state = {data: null};
     }
 
     render() {
@@ -36,10 +20,10 @@ class BrowserLayout extends React.Component {
               <Container fluid>
                 <Row>
                   <Col xs={12} md={8} id="graph-wrapper">
-                    <Graph onNodeClick={(node, event) => this.nodeClick(node, event)} onLinkClick={this.linkClick}/>
+                    <Graph />
                   </Col>
                   <Col xs={6} md={4}>
-                    <Properties nodeData={this.state.nodeData} linkData={this.state.linkData} eventData={this.state.eventData} />
+                    <div id="properties-wrapper"><h3>Properties</h3></div>
                   </Col>
                 </Row>
                 <Row>
@@ -52,8 +36,8 @@ class BrowserLayout extends React.Component {
                   </Col>
                 </Row>
                 <Row>
-                  <Col xs={8}>foo</Col>
-                  <Col xs={4}>bar</Col>
+                  <Col xs={6}>foo</Col>
+                  <Col xs={6}>bar</Col>
                 </Row>
               </Container>
             </>
