@@ -8,7 +8,10 @@ class Graph extends React.Component {
 
     constructor(...args) {
         super(...args);
-        this.state = {data: null};
+        this.state = {data: null, onNodeClick: args[0].onNodeClick, onLinkClick: args[0].onLinkClick};
+
+        console.log(this.state);
+        console.log(args);
     }
    
     componentDidMount() {
@@ -38,12 +41,8 @@ class Graph extends React.Component {
                     nodeLabel={"id"}
                     graphData={this.state.data}
                     linkLabel={"id"}
-                    onNodeClick={(node, _event) => {
-                        alert("Node: " + node.id + "| Group: " + node.group);
-                    }}
-                    onLinkClick={(link, _event) => {
-                        alert("Source Node: " + link.source.id + ": " + link.source.group + "\nDest Node: " + link.target.id + ": " + link.target.group);
-                    }}
+                    onNodeClick={this.state.onNodeClick}
+                    onLinkClick={this.state.onLinkClick}
                     nodeAutoColorBy="group"
                     nodeThreeObjectExtend={true}
                     nodeThreeObject={(node) => {
