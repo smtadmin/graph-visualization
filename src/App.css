@@ -29,3 +29,7 @@ h3, .row-header {
   background: lightblue;
   padding: 10px;
 }
+
+.info-panel {
+  padding:10px;
+}

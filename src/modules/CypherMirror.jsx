@@ -15,7 +15,7 @@ class CypherMirror extends React.Component {
     this.state = { editorValue: props.editorValue };
   }
 
-  componentDidMount = () => {
+  componentDidUpdate = () => {
     console.log("CMD: " + this.state.editorValue + "|" + this.props.editorValue);
   }
 
@@ -61,7 +61,7 @@ class CypherMirror extends React.Component {
           </Row>
           <Row>
             <Col xs={12} md={10}>
-              <CypherEditor value={this.state.editorValue} {...this.editorProps} />
+              <CypherEditor value={this.props.editorValue} {...this.editorProps} />
             </Col>
           </Row>
         </Container>

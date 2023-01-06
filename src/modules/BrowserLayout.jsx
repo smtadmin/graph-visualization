@@ -37,7 +37,9 @@ class BrowserLayout extends React.Component {
 
     useHistory = (value) => {
       console.log(value);
-      this.setState({editorValue : value });
+      this.setState({editorValue : value }, () => {
+        console.log("State", this.state.editorValue);
+      });
     }
 
     render() {

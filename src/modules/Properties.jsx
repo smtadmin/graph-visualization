@@ -6,22 +6,22 @@ class Properties extends React.Component {
     displayElement = () => {
         if (this.props.nodeData) return this.displayNode(this.props.nodeData);
         if (this.props.linkData) return this.displayLink(this.props.linkData);
-        else return "Put something here"
+        else return "<div className='info-panel'>Put something here</div>"
     }
 
 
     displayNode = (nodeData) => {
-        let ele = "<h4>Node Attributes</h4>"
+        let ele = "<div className='info-panel'><h4>Node Attributes</h4>";
         ele += "<div>ID: " + nodeData.id + "</div>";
         ele += "<div>Color: " + nodeData.color + "</div>";
         ele += "<div>Group: " + nodeData.group + "</div>";
-        ele += "<div>Index: " + nodeData.index + "</div>";
+        ele += "<div>Index: " + nodeData.index + "</div></div>";
 
         return ele;
     }
 
     displayLink = (linkData) => {
-        let ele = "<h4>Link Attributes</h4>";
+        let ele = "<div className='info-panel'><h4>Link Attributes</h4>";
         ele += "<div>Relationship Value:" + linkData.value + "</div>";
         ele += "<div>Relationship Index:" + linkData.index + "</div>";
         ele+= "<hr/>";
@@ -31,7 +31,7 @@ class Properties extends React.Component {
         ele+= "<hr/>";
         ele += "<div>Target ID:" + linkData.target.id + "</div>";
         ele += "<div>Target Color:" + linkData.target.color + "</div>";
-        ele += "<div>Target Group:" + linkData.target.group + "</div>";       
+        ele += "<div>Target Group:" + linkData.target.group + "</div></div>";       
         return ele;
     }
 
