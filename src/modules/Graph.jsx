@@ -9,9 +9,6 @@ class Graph extends React.Component {
     constructor(...args) {
         super(...args);
         this.state = {data: null, onNodeClick: args[0].onNodeClick, onLinkClick: args[0].onLinkClick};
-
-        console.log(this.state);
-        console.log(args);
     }
    
     componentDidMount() {
@@ -23,14 +20,12 @@ class Graph extends React.Component {
     }
 
     async getData() {
-        console.log("Getting");
         const res = await axios.get('./miserables.json')
         return res.data;
     }
 
 
     displayGraph() {
-        console.log("Width: " + document.getElementById("graph-wrapper").clientWidth);
         return (
             <div>
                 <ForceGraph3D 

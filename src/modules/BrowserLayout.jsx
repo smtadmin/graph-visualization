@@ -3,31 +3,41 @@ import React  from 'react';
 import Graph from './Graph'
 import CypherMirror from './CypherMirror'
 import Properties from './Properties'
+import History from './History'
+import Events from './Events'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import "bootstrap/dist/css/bootstrap.min.css";
 
+const history = new Set();
 class BrowserLayout extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {data: null, nodeData:null, eventData:null, linkData:null};
+        history.add("match(n) return n");
+        this.state = {data: null, nodeData:null, eventData:null, linkData:null, history: new Set(history), editorValue: ""};
+        
     }
 
     nodeClick = async (node, _event) => {
-      console.log("Node", node);
-      console.log("Event", _event);
-
-      this.setState({eventData: _event, nodeData: node, linkData: null}, () =>{
-        console.log(this.state);
-      }) ;
+      this.setState({eventData: _event, nodeData: node, linkData: null}) ;
     }
 
-    linkClick = (node, _event) => {
-      console.log("rNode", node);
-      console.log("rEvent", _event);
-      this.setState({eventData: _event});
+    linkClick = (link, _event) => {
+      this.setState({eventData: _event, linkData: link, nodeData: null});
+    }
+
+
+    sendCypher = (value) => {
+      // Update History
+      history.add(value.trim());
+      this.setState({history : history});      
+    }
+
+    useHistory = (value) => {
+      console.log(value);
+      this.setState({editorValue : value });
     }
 
     render() {
@@ -36,7 +46,7 @@ class BrowserLayout extends React.Component {
               <Container fluid>
                 <Row>
                   <Col xs={12} md={8} id="graph-wrapper">
-                    <Graph onNodeClick={(node, event) => this.nodeClick(node, event)} onLinkClick={this.linkClick}/>
+                    <Graph onNodeClick={this.nodeClick} onLinkClick={this.linkClick}/>
                   </Col>
                   <Col xs={6} md={4}>
                     <Properties nodeData={this.state.nodeData} linkData={this.state.linkData} eventData={this.state.eventData} />
@@ -44,16 +54,18 @@ class BrowserLayout extends React.Component {
                 </Row>
                 <Row>
                   <Col>
-                    
                     <div id="code-wrapper">
-                        <h3>Cypher Commands</h3>
-                        <CypherMirror />
+                        <CypherMirror sendCypher={this.sendCypher} editorValue={ this.state.editorValue }/>
                     </div>
                   </Col>
                 </Row>
                 <Row>
-                  <Col xs={8}>foo</Col>
-                  <Col xs={4}>bar</Col>
+                  <Col xs={8} md={8}>
+                    <Events />
+                  </Col>
+                  <Col xs={4} md={4}>
+                    <History data={this.state.history} useHistory={this.useHistory}/>
+                  </Col>
                 </Row>
               </Container>
             </>

@@ -1,24 +1,46 @@
 import React  from 'react';
+import parse from "html-react-parser";
 
 class Properties extends React.Component {
 
-    constructor(props) {
-        super(props);
-        console.log("P Props", props);
-        this.state = {data: null, nodeData: props.nodeData, eventData: props.eventData };
-        
+    displayElement = () => {
+        if (this.props.nodeData) return this.displayNode(this.props.nodeData);
+        if (this.props.linkData) return this.displayLink(this.props.linkData);
+        else return "Put something here"
     }
 
-    componentDidUpdate = (prevProps, props) => {
-        console.log("**************************", props);
-      }
+
+    displayNode = (nodeData) => {
+        let ele = "<h4>Node Attributes</h4>"
+        ele += "<div>ID: " + nodeData.id + "</div>";
+        ele += "<div>Color: " + nodeData.color + "</div>";
+        ele += "<div>Group: " + nodeData.group + "</div>";
+        ele += "<div>Index: " + nodeData.index + "</div>";
+
+        return ele;
+    }
+
+    displayLink = (linkData) => {
+        let ele = "<h4>Link Attributes</h4>";
+        ele += "<div>Relationship Value:" + linkData.value + "</div>";
+        ele += "<div>Relationship Index:" + linkData.index + "</div>";
+        ele+= "<hr/>";
+        ele += "<div>Source ID:" + linkData.source.id + "</div>";
+        ele += "<div>Source Color:" + linkData.source.color + "</div>";
+        ele += "<div>Source Group:" + linkData.source.group + "</div>";
+        ele+= "<hr/>";
+        ele += "<div>Target ID:" + linkData.target.id + "</div>";
+        ele += "<div>Target Color:" + linkData.target.color + "</div>";
+        ele += "<div>Target Group:" + linkData.target.group + "</div>";       
+        return ele;
+    }
 
     render() {
         return (
-            <div id="properties-wrapper">
+            <div>
                 <h3>Properties</h3>
                 <div>
-                    Event: {this.state.nodeData ? this.state.nodeData.id : "none"}
+                    {parse(this.displayElement())}
                 </div>
             </div>
         )

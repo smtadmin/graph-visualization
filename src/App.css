@@ -1,37 +1,10 @@
-#graph-wrapper {
-  border: solid 5px red;
-  padding: 0px;
-  margin: 0px;
-  background-color: red;
-}
-
-#properties-wrapper {
-  border: solid 5px blue;
-  height: 100%;
-}
-
 [class^="col"] {
   padding: 0px !important;
   margin: 0px !important;
 }
 
-#properties-wrapper h3 {
-  color: blue;
-  background: lightgray;
-  border-bottom: solid 2px #c3c3c3;
-  text-align: center;
-}
-
 #code-wrapper {
-  border: solid 5px green;
-  height: 400px;
-}
-
-#code-wrapper h3 {
-  color: green;
-  background: lightgray;
-  border-bottom: solid 2px #c3c3c3;
-  text-align: center;
+  height: 300px;
 }
 
 #history-wrapper {
@@ -39,21 +12,20 @@
   height: 400px;
 }
 
-#history-wrapper h3 {
-  color: rgb(115, 0, 223);
-  background: lightgray;
-  border-bottom: solid 2px #c3c3c3;
-  text-align: center;
-}
-
-#message-wrapper {
-  border: solid 5px rgb(219, 124, 0);
+.message-wrapper {
   height: 400px;
+  padding-left:30px !important;
 }
 
-#message-wrapper h3 {
+h3, .row-header {
   color: rgb(219, 124, 0);
+  height:40px;
   background: lightgray;
   border-bottom: solid 2px #c3c3c3;
   text-align: center;
+}
+
+.history-list {
+  background: lightblue;
+  padding: 10px;
 }
