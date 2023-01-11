@@ -33,3 +33,22 @@ h3, .row-header {
 .info-panel {
   padding:10px;
 }
+
+#graph-wrapper {
+  min-height: 300px;
+}
+
+.properties-wrapper {
+  border-left:solid 1px lightgray;
+  padding: 0px !important;
+}
+
+.message-wrapper li {
+  color:red;
+  background:lightblue;
+  margin-bottom: 10px;
+}
+
+.message-wrapper li p {
+  color:red;
+}

@@ -37,12 +37,12 @@ class Properties extends React.Component {
 
     render() {
         return (
-            <div>
+            <>
                 <h3>Properties</h3>
                 <div>
                     {parse(this.displayElement())}
                 </div>
-            </div>
+            </>
         )
     }
 }

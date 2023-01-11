@@ -15,12 +15,9 @@ class CypherMirror extends React.Component {
     this.state = { editorValue: props.editorValue };
   }
 
-  componentDidUpdate = () => {
-    console.log("CMD: " + this.state.editorValue + "|" + this.props.editorValue);
-  }
-
   setEditorValue = () => {
     this.setState({ editorValue: "" })
+    this.props.editorValue = "";
   }
 
   editorProps = {
@@ -54,7 +51,7 @@ class CypherMirror extends React.Component {
               <IconButton onClick={() => this.props.sendCypher(this.state.editorValue)} aria-label="Execute" title="Execute" color="primary">
                 <PlayArrowIcon />
               </IconButton>
-              <IconButton onClick={() => this.setEditorValue()} aria-label="Clear Panel" title="Clear Panel" color="primary">
+              <IconButton onClick={() => this.props.clearEditor()}  aria-label="Clear Panel" title="Clear Panel" color="primary">
                 <ClearAll />
               </IconButton>
             </Col>

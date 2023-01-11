@@ -1,8 +1,6 @@
 import React  from 'react';
-import axios from 'axios';
-import { ForceGraph3D } from 'react-force-graph';
+import { ForceGraph2D } from 'react-force-graph';
 import SpriteText from 'three-spritetext';
-var ctr = 0;
 
 class Graph extends React.Component {
 
@@ -10,32 +8,18 @@ class Graph extends React.Component {
         super(...args);
         this.state = {data: null, onNodeClick: args[0].onNodeClick, onLinkClick: args[0].onLinkClick};
     }
-   
-    componentDidMount() {
-        if (!this.state.data && ctr++ < 1) {
-            this.getData()
-                .then(data => this.setState({data}))
-                .catch(err => { console.log(err)});
-        }
-    }
-
-    async getData() {
-        const res = await axios.get('./miserables.json')
-        return res.data;
-    }
-
 
     displayGraph() {
         return (
             <div>
-                <ForceGraph3D 
+                <ForceGraph2D 
                     width={document.getElementById("graph-wrapper").clientWidth}
                     height={500}
                     showNavInfo={false} 
                     nodeRelSize={10} 
-                    nodeLabel={"id"}
-                    graphData={this.state.data}
-                    linkLabel={"id"}
+                    nodeLabel={"identifier"}
+                    graphData={this.props.data}
+                    linkLabel={"identifier"}
                     onNodeClick={this.state.onNodeClick}
                     onLinkClick={this.state.onLinkClick}
                     nodeAutoColorBy="group"
@@ -51,9 +35,7 @@ class Graph extends React.Component {
                     linkDirectionalParticleWidth={3}
                     linkDirectionalArrowLength={5}
                     linkColor={"red"}
-                    linkWidth={(link) => {
-                        return (link.source.group === 8) ? 10 : 1;
-                    }}
+                    linkWidth={1}
                 />
             </div>
         )
@@ -61,7 +43,7 @@ class Graph extends React.Component {
 
     render() {
       return (
-        <div>{this.state.data ? this.displayGraph() : <em>Loading ...</em>}</div>
+        <div>{this.props.data ? this.displayGraph() : <em>Submmit a Cypher command</em>}</div>
         
       );
     }
