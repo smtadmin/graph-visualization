@@ -5,6 +5,7 @@ import CypherMirror from './CypherMirror'
 import Properties from './Properties'
 import History from './History'
 import Events from './Events'
+import IconPanel from './IconPanel'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -56,6 +57,8 @@ class BrowserLayout extends React.Component {
    * @param {*} _event Event object iinformation
    */
   linkClick = (link, _event) => {
+    link.source.serviceName=this.state.data.nodes.find(x => x.id === link.source.id).properties.serviceName;
+    link.target.serviceName=this.state.data.nodes.find(x => x.id === link.target.id).properties.serviceName;
     this.setState({ eventData: _event, linkData: link, nodeData: null });
   }
 
@@ -75,7 +78,7 @@ class BrowserLayout extends React.Component {
       "query": command,
       "includeRelationships": true
     })
-    console.log(res.data.data);
+
     requestMessage.unshift({command: command, message: res.data.message ? res.data.message : "Query Completed Successfully"});
     this.setState({ data : res.data.data, requestMessage : requestMessage});
   }
@@ -109,10 +112,13 @@ class BrowserLayout extends React.Component {
       <>
         <Container fluid>
           <Row>
-            <Col xs={12} md={8} id="graph-wrapper">
+            <Col xs={1} md={1} className="display-type-panel">
+              <IconPanel/>
+            </Col>
+            <Col xs={8} md={8} id="graph-wrapper">
               <Graph data={this.state.data} onNodeClick={this.nodeClick} onLinkClick={this.linkClick} />
             </Col>
-            <Col xs={6} md={4} className="properties-wrapper">
+            <Col className="properties-wrapper">
               <Properties nodeData={this.state.nodeData} linkData={this.state.linkData} eventData={this.state.eventData} />
             </Col>
           </Row>

@@ -9,29 +9,41 @@ class Properties extends React.Component {
         else return "<div className='info-panel'>Put something here</div>"
     }
 
+    displayRow = (key, value) => {
+        let ele = "<div><span className='property-key'>" + key + ": </span>";
+        ele += "<span className='property-value'>" + value + "</span></div>";
+        return ele;
+    }
+
 
     displayNode = (nodeData) => {
         let ele = "<div className='info-panel'><h4>Node Attributes</h4>";
-        ele += "<div>ID: " + nodeData.id + "</div>";
-        ele += "<div>Color: " + nodeData.color + "</div>";
-        ele += "<div>Group: " + nodeData.group + "</div>";
-        ele += "<div>Index: " + nodeData.index + "</div></div>";
-
+        ele += this.displayRow("ID", nodeData.id);
+        ele += this.displayRow("Index", nodeData.index);
+        
+        for(const key in nodeData.properties) {
+            ele += this.displayRow(key, nodeData.properties[key]);
+        }
+        ele += "</div>";
         return ele;
     }
 
     displayLink = (linkData) => {
         let ele = "<div className='info-panel'><h4>Link Attributes</h4>";
-        ele += "<div>Relationship Value:" + linkData.value + "</div>";
-        ele += "<div>Relationship Index:" + linkData.index + "</div>";
+        ele += this.displayRow("Relationship Index", linkData.index);
+        ele += this.displayRow("Relationship Type", linkData.type);
+
+        for(const key in linkData.properties) {
+            ele += this.displayRow(key, linkData.properties[key]);
+        }
+        
         ele+= "<hr/>";
-        ele += "<div>Source ID:" + linkData.source.id + "</div>";
-        ele += "<div>Source Color:" + linkData.source.color + "</div>";
-        ele += "<div>Source Group:" + linkData.source.group + "</div>";
+        ele += this.displayRow("Source ID", linkData.source.id);
+        ele += this.displayRow("Source Service Name", linkData.source.serviceName);
         ele+= "<hr/>";
-        ele += "<div>Target ID:" + linkData.target.id + "</div>";
-        ele += "<div>Target Color:" + linkData.target.color + "</div>";
-        ele += "<div>Target Group:" + linkData.target.group + "</div></div>";       
+        ele += this.displayRow("Target ID", linkData.target.id);
+        ele += this.displayRow("Target Service Name", linkData.target.serviceName);
+
         return ele;
     }
 

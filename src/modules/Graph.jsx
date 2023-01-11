@@ -1,7 +1,8 @@
 import React  from 'react';
-import { ForceGraph2D } from 'react-force-graph';
-import SpriteText from 'three-spritetext';
+import { ForceGraph3D } from 'react-force-graph';
+// import SpriteText from 'three-spritetext';
 
+const colors = ["#3d5a80", "#98c1d9", "#e0fbfc", "#ee6c4d", "#293241"]
 class Graph extends React.Component {
 
     constructor(...args) {
@@ -11,39 +12,38 @@ class Graph extends React.Component {
 
     displayGraph() {
         return (
-            <div>
-                <ForceGraph2D 
+            <>
+                <ForceGraph3D 
                     width={document.getElementById("graph-wrapper").clientWidth}
                     height={500}
-                    showNavInfo={false} 
-                    nodeRelSize={10} 
-                    nodeLabel={"identifier"}
+                    showNavInfo={true} 
+                    nodeRelSize={6} 
+                    nodeVal={1}
+                    nodeLabel={(node) => {
+                        return node.properties.serviceName;
+                    }}
                     graphData={this.props.data}
-                    linkLabel={"identifier"}
                     onNodeClick={this.state.onNodeClick}
                     onLinkClick={this.state.onLinkClick}
-                    nodeAutoColorBy="group"
-                    nodeThreeObjectExtend={true}
-                    nodeThreeObject={(node) => {
-                        const sprite = new SpriteText(node.id);
-                        sprite.color = node.color;
-                        sprite.textHeight = 8;
-                        return sprite;
+                    nodeColor={(node) => {
+                        let phase = node.properties.phase;
+                        if (phase >= 0 && phase < colors.length) return colors[phase-1];
+                        return colors[0];
                     }}
-                    linkDirectionalParticleColor={"red"}
-                    linkDirectionalParticles={5}
-                    linkDirectionalParticleWidth={3}
-                    linkDirectionalArrowLength={5}
-                    linkColor={"red"}
-                    linkWidth={1}
+                    linkColor={() => 'rgba(255,0,0,0.5)'}
+                    linkWidth={2}
+                    linkLabel={"type"}
+                    linkDirectionalArrowLength={3}
+                    linkDirectionalArrowColor={() => 'rgba(255,255,255,0.2)'}
+                    linkOpacity={.75}
                 />
-            </div>
+            </>
         )
     }
 
     render() {
       return (
-        <div>{this.props.data ? this.displayGraph() : <em>Submmit a Cypher command</em>}</div>
+        <div >{this.props.data && this.props.data.nodes ? this.displayGraph() : <em>Submit a Cypher command</em>}</div>
         
       );
     }

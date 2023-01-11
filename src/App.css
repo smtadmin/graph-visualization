@@ -18,7 +18,7 @@
 }
 
 h3, .row-header {
-  color: rgb(219, 124, 0);
+  color: #616161;
   height:40px;
   background: lightgray;
   border-bottom: solid 2px #c3c3c3;
@@ -35,7 +35,7 @@ h3, .row-header {
 }
 
 #graph-wrapper {
-  min-height: 300px;
+  min-height:500px;
 }
 
 .properties-wrapper {
@@ -51,4 +51,21 @@ h3, .row-header {
 
 .message-wrapper li p {
   color:red;
+}
+
+.property-key {
+  text-transform: capitalize;
+  font-weight: bolder;
+}
+
+.property-value {
+  text-transform: capitalize;
+  color: darkblue;
+}
+
+.display-type-panel {
+  border:solid 1px darkgray;
+  background: lightgray;
+  width:75px !important;
+  min-height:500px;
 }
