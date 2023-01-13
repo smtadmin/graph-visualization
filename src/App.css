@@ -1,15 +1,75 @@
+.my-container {
+  max-height:100%;
+}
+
 [class^="col"] {
   padding: 0px !important;
   margin: 0px !important;
 }
 
-#code-wrapper {
-  height: 300px;
+#inner-row-1 {
+  height:50vh;
+  max-height:50vh;
+}
+#inner-row-2 {
+  height:20vh;
+  max-height:20vh;
+}
+#inner-row-3 {
+  height:30vh;
+  max-height:30vh;
+  flex-wrap: unset;
 }
 
-#history-wrapper {
-  border: solid 5px rgb(115, 0, 223);
-  height: 400px;
+#code-wrapper {
+  height:100%;
+  max-height:100%;
+}
+
+.history-wrapper {
+  border:solid 1px lightgray;
+  border-radius: 10px;
+  margin:20px 0px 0px 0px !important;
+  padding:0px !important;
+  width:90%;
+  height:85%;
+  max-height:85%;
+  overflow: auto;
+}
+
+.history-wrapper h3 {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  text-align: center;
+  
+}
+
+.history-list {
+  background: lightgray;
+  padding: 10px;
+  margin-bottom: 10px; 
+
+}
+
+.history-list-wrapper {
+  height: 84% !important;
+  max-height: 84% !important;
+  
+  width: 100%;
+  background-color: #ffffff;
+}
+
+.event-list-wrapper {
+  height: 85% !important;
+  overflow: auto;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+.event-list {
+  background: lightgray;
+  padding: 10px;
+  margin-bottom: 10px; 
 }
 
 .message-wrapper {
@@ -22,12 +82,7 @@ h3, .row-header {
   height:40px;
   background: lightgray;
   border-bottom: solid 2px #c3c3c3;
-  text-align: center;
-}
-
-.history-list {
-  background: lightblue;
-  padding: 10px;
+  padding-left:20px;
 }
 
 .info-panel {
@@ -36,21 +91,27 @@ h3, .row-header {
 
 #graph-wrapper {
   min-height:500px;
+  text-align:center;
+}
+
+#graph-wrapper .graph-label {
+  margin-top:200px;
+  font-style: italic;
+  font-size: larger;
+  font-weight: bolder;
 }
 
 .properties-wrapper {
-  border-left:solid 1px lightgray;
-  padding: 0px !important;
+  border:solid 1px lightgray;
+  border-radius: 10px;
+  margin: 20px 20px 20px 20px !important;
+  padding:0px !important;
 }
 
-.message-wrapper li {
-  color:red;
-  background:lightblue;
-  margin-bottom: 10px;
-}
-
-.message-wrapper li p {
-  color:red;
+.properties-wrapper h3 {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  text-align: center;
 }
 
 .property-key {
@@ -68,4 +129,10 @@ h3, .row-header {
   background: lightgray;
   width:75px !important;
   min-height:500px;
+}
+
+.pretty-json {
+  overflow: auto;
+  text-align:left;
+  padding: 10px;
 }

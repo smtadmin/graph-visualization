@@ -6,7 +6,7 @@ class Properties extends React.Component {
     displayElement = () => {
         if (this.props.nodeData) return this.displayNode(this.props.nodeData);
         if (this.props.linkData) return this.displayLink(this.props.linkData);
-        else return "<div className='info-panel'>Put something here</div>"
+        else return "<div className='info-panel'>Click on a Node or link to display it's properties</div>"
     }
 
     displayRow = (key, value) => {

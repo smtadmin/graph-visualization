@@ -3,7 +3,7 @@ import TitleRoundedIcon from '@mui/icons-material/TitleRounded';
 import IconButton from '@mui/material/IconButton';
 import GridViewIcon from '@mui/icons-material/GridView';
 import ScatterPlotIcon from '@mui/icons-material/ScatterPlot';
-import StorageIcon from '@mui/icons-material/Storage';
+import AccountTreeIcon from '@mui/icons-material/AccountTree';
 
 /****************************************************************************
  * <b>Title</b>: BrowserLayout.jsx.java
@@ -19,16 +19,19 @@ import StorageIcon from '@mui/icons-material/Storage';
  ****************************************************************************/
 
 class IconPanel extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
     render() {
         
 
         return (
             <>
-            <div><IconButton title="Display as Text"><TitleRoundedIcon fontSize="large" /></IconButton></div>
-            <div><IconButton title="Display in Grid View"><GridViewIcon fontSize="large" /></IconButton></div>
-            <div><IconButton title="Display in GraphView"><ScatterPlotIcon fontSize="large" /></IconButton></div>
-            <div><IconButton title="Display in Raw View"><StorageIcon fontSize="large" /></IconButton></div>
+            <div><IconButton title="Display as Text" onClick={() => this.props.displayGraphType("TEXT")}><TitleRoundedIcon fontSize="large" /></IconButton></div>
+            <div><IconButton title="Display in Grid View" onClick={() => this.props.displayGraphType("GRID")}><GridViewIcon fontSize="large" /></IconButton></div>
+            <div><IconButton title="Display in GraphView" onClick={() => this.props.displayGraphType("GRAPH")}><ScatterPlotIcon fontSize="large" /></IconButton></div>
+            <div><IconButton title="Display DAG" onClick={() => this.props.displayGraphType("DAG")}><AccountTreeIcon fontSize="large" /></IconButton></div>
             </>
         );
     }

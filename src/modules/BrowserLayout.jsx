@@ -1,6 +1,8 @@
 import '../App.css';
 import React from 'react';
 import Graph from './Graph'
+import TextDisplay from './TextDisplay'
+import GridDisplay from './GridDisplay'
 import CypherMirror from './CypherMirror'
 import Properties from './Properties'
 import History from './History'
@@ -27,6 +29,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const url = "http://localhost:8085/query/12345";
 const history = new Set();
 const requestMessage = [];
+var height = 500;
 class BrowserLayout extends React.Component {
 
   /**
@@ -36,8 +39,12 @@ class BrowserLayout extends React.Component {
   constructor(props) {
     super(props);
     history.add("match(n) return n");
-    this.state = { data: null, nodeData: null, eventData: null, linkData: null, history: new Set(history), editorValue: "", requestMessage: requestMessage };
+    this.state = { data: null, nodeData: null, eventData: null, linkData: null, history: new Set(history), editorValue: "", requestMessage: requestMessage, graphType: "GRAPH"};
 
+  }
+
+  componentDidMount() {
+    height = this.divElement.clientHeight;
   }
 
   /**
@@ -103,6 +110,20 @@ class BrowserLayout extends React.Component {
     this.setState({ editorValue: value });
   }
 
+  displayGraphType = (type) => {
+    console.log("Changing: " + type);
+    this.setState({ graphType : type});
+  }
+
+  getGraph = () => {
+    if (! this.state.data) return (<div className="graph-label">Submit a Cypher command</div>);
+    else if (this.state.graphType === "TEXT") return(<TextDisplay data={this.state.data} height={height}/>);
+    else if (this.state.graphType === "GRID") return(<GridDisplay data={this.state.data} />);
+    else if (this.state.graphType === "DAG") return(<GridDisplay data={this.state.data} />);
+    else if (this.state.graphType === "GRAPH") return (<Graph data={this.state.data} onNodeClick={this.nodeClick} onLinkClick={this.linkClick} height={height}/>);
+    else return (<div className="graph-label">Submit a Cypher command</div>);
+  }
+
   /**
    * Lays out and renders the page
    * @returns Bootstrap conatiner displaying the entire page
@@ -110,31 +131,33 @@ class BrowserLayout extends React.Component {
   render() {
     return (
       <>
-        <Container fluid>
-          <Row>
+        <Container fluid className="vh-100 d-flex flex-column my-container">
+          <Row className="row-header"></Row>
+          <Row id="inner-row-1" ref={ (divElement) => { this.divElement = divElement } }>
             <Col xs={1} md={1} className="display-type-panel">
-              <IconPanel/>
+              <IconPanel displayGraphType={this.displayGraphType}/>
             </Col>
             <Col xs={8} md={8} id="graph-wrapper">
-              <Graph data={this.state.data} onNodeClick={this.nodeClick} onLinkClick={this.linkClick} />
+              { this.getGraph()}
             </Col>
             <Col className="properties-wrapper">
               <Properties nodeData={this.state.nodeData} linkData={this.state.linkData} eventData={this.state.eventData} />
             </Col>
           </Row>
-          <Row>
+          <Row id="inner-row-2">
             <Col>
               <div id="code-wrapper">
                 <CypherMirror clearEditor={this.clearEditor} sendCypher={this.sendCypher} editorValue={this.state.editorValue} />
               </div>
             </Col>
           </Row>
-          <Row>
+          <Row className="row-header"><h3>Event Log</h3></Row>
+          <Row id="inner-row-3">
             <Col xs={8} md={8}>
-              <Events requestMessage={this.state.requestMessage}/>
+                <Events requestMessage={this.state.requestMessage}/>
             </Col>
             <Col xs={4} md={4}>
-              <History data={this.state.history} useHistory={this.useHistory} />
+                <History data={this.state.history} useHistory={this.useHistory} />
             </Col>
           </Row>
         </Container>

@@ -48,10 +48,10 @@ class CypherMirror extends React.Component {
               <h3>Cypher Commands</h3>
             </Col>
             <Col className="row-header" xs={2} md={2}>
-              <IconButton onClick={() => this.props.sendCypher(this.state.editorValue)} aria-label="Execute" title="Execute" color="primary">
+              <IconButton onClick={() => this.props.sendCypher(this.state.editorValue)} aria-label="Execute" title="Execute">
                 <PlayArrowIcon />
               </IconButton>
-              <IconButton onClick={() => this.props.clearEditor()}  aria-label="Clear Panel" title="Clear Panel" color="primary">
+              <IconButton onClick={() => this.props.clearEditor()}  aria-label="Clear Panel" title="Clear Panel">
                 <ClearAll />
               </IconButton>
             </Col>
