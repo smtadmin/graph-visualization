@@ -1,6 +1,7 @@
 import '../App.css';
 import React from 'react';
 import Graph from './Graph'
+import DagGraph from './DagGraph'
 import TextDisplay from './TextDisplay'
 import GridDisplay from './GridDisplay'
 import CypherMirror from './CypherMirror'
@@ -29,7 +30,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const url = "http://localhost:8085/query/12345";
 const history = new Set();
 const requestMessage = [];
-var height = 500;
 class BrowserLayout extends React.Component {
 
   /**
@@ -39,12 +39,18 @@ class BrowserLayout extends React.Component {
   constructor(props) {
     super(props);
     history.add("match(n) return n");
-    this.state = { data: null, nodeData: null, eventData: null, linkData: null, history: new Set(history), editorValue: "", requestMessage: requestMessage, graphType: "GRAPH"};
+    this.state = { 
+      data: null, 
+      nodeData: null, 
+      eventData: null, 
+      linkData: null, 
+      history: new Set(history), 
+      editorValue: "", 
+      requestMessage: requestMessage, 
+      graphType: "GRAPH",
+      dagDirection : "td"
+    };
 
-  }
-
-  componentDidMount() {
-    height = this.divElement.clientHeight;
   }
 
   /**
@@ -81,11 +87,15 @@ class BrowserLayout extends React.Component {
    * @param {String} command Cypher command to be executed
    */
   async getData(command) {
-    const res = await axios.post(url, {
+    let res = {};
+    res = await axios.post(url, {
       "query": command,
       "includeRelationships": true
     })
-
+    .catch(function (error) {
+      return error.response;
+    });
+    
     requestMessage.unshift({command: command, message: res.data.message ? res.data.message : "Query Completed Successfully"});
     this.setState({ data : res.data.data, requestMessage : requestMessage});
   }
@@ -107,20 +117,26 @@ class BrowserLayout extends React.Component {
    * @param {String} value Command to place in the editor
    */
   useHistory = (value) => {
-    this.setState({ editorValue: value });
+    this.setState({ editorValue: "" }, () => {
+      this.setState({ editorValue: value });
+    });
   }
 
   displayGraphType = (type) => {
-    console.log("Changing: " + type);
     this.setState({ graphType : type});
+  }
+
+
+  setDagDirection = (event) => {
+    this.setState({ dagDirection : event.target.value});
   }
 
   getGraph = () => {
     if (! this.state.data) return (<div className="graph-label">Submit a Cypher command</div>);
-    else if (this.state.graphType === "TEXT") return(<TextDisplay data={this.state.data} height={height}/>);
+    else if (this.state.graphType === "TEXT") return(<TextDisplay data={this.state.data}/>);
     else if (this.state.graphType === "GRID") return(<GridDisplay data={this.state.data} />);
-    else if (this.state.graphType === "DAG") return(<GridDisplay data={this.state.data} />);
-    else if (this.state.graphType === "GRAPH") return (<Graph data={this.state.data} onNodeClick={this.nodeClick} onLinkClick={this.linkClick} height={height}/>);
+    else if (this.state.graphType === "DAG") return(<DagGraph data={this.state.data} onNodeClick={this.nodeClick} onLinkClick={this.linkClick} dagDirection={this.state.dagDirection}/>);
+    else if (this.state.graphType === "GRAPH") return (<Graph data={this.state.data} onNodeClick={this.nodeClick} onLinkClick={this.linkClick}/>);
     else return (<div className="graph-label">Submit a Cypher command</div>);
   }
 
@@ -135,7 +151,7 @@ class BrowserLayout extends React.Component {
           <Row className="row-header"></Row>
           <Row id="inner-row-1" ref={ (divElement) => { this.divElement = divElement } }>
             <Col xs={1} md={1} className="display-type-panel">
-              <IconPanel displayGraphType={this.displayGraphType}/>
+              <IconPanel displayGraphType={this.displayGraphType} graphType={this.state.graphType} dagDirection={this.state.dagDirection} setDagDirection={this.setDagDirection}/>
             </Col>
             <Col xs={8} md={8} id="graph-wrapper">
               { this.getGraph()}

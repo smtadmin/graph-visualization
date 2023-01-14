@@ -136,3 +136,8 @@ h3, .row-header {
   text-align:left;
   padding: 10px;
 }
+
+.dag-selector {
+  padding-left:0px;
+  margin-left: 0px;
+}
