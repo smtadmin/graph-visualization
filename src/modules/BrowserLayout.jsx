@@ -16,7 +16,7 @@ import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 /****************************************************************************
- * <b>Title</b>: BrowserLayout.jsx.java
+ * <b>Title</b>: BrowserLayout.jsx
  * <b>Project</b>: graph-visualization
  * <b>Description: </b> Main display/controller for the APM graph display
  * <b>Copyright:</b> Copyright (c) 2021
@@ -122,15 +122,27 @@ class BrowserLayout extends React.Component {
     });
   }
 
+  /**
+   * Sets the state for the current type of display for the node and link data
+   * @param {*} type Selected graph type
+   */
   displayGraphType = (type) => {
     this.setState({ graphType : type});
   }
 
-
+  /**
+   * Updates the state for rendering the dag graph direction fromt he select picker
+   * @param {*} event 
+   */
   setDagDirection = (event) => {
     this.setState({ dagDirection : event.target.value});
   }
 
+  /**
+   * A controller method to select the graph type based on a selection from 
+   * the IconPanel
+   * @returns Appropriate component for the selected type
+   */
   getGraph = () => {
     if (! this.state.data) return (<div className="graph-label">Submit a Cypher command</div>);
     else if (this.state.graphType === "TEXT") return(<TextDisplay data={this.state.data}/>);

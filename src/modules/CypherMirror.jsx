@@ -8,18 +8,33 @@ import IconButton from '@mui/material/IconButton';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import ClearAll from '@mui/icons-material/ClearAll';
 
+/****************************************************************************
+ * <b>Title</b>: CypherMirror.jsx
+ * <b>Project</b>: graph-visualization
+ * <b>Description: </b> IDE component to enter the Cypher commands to be processed
+ * <b>Copyright:</b> Copyright (c) 2021
+ * <b>Company:</b> Silicon Mountain Technologies
+ * 
+ * @author James Camire
+ * @version 1.0
+ * @since January 3, 2022
+ * @updates:
+ ****************************************************************************/
 class CypherMirror extends React.Component {
 
+  /**
+   * Initializes the class and assigns the default editor value to state
+   * @param {*} props Editor value to assign.  Allows for clearing and history 
+   * to be assigned
+   */
   constructor(props) {
     super(props);
     this.state = { editorValue: props.editorValue };
   }
 
-  setEditorValue = () => {
-    this.setState({ editorValue: "" })
-    this.props.editorValue = "";
-  }
-
+  /**
+   * Default properties for the editor including all of the callbacks
+   */
   editorProps = {
     onValueChanged: value => { this.setState({ editorValue: value }) }, // optional
     onFocusChanged: focused => { }, // optional
@@ -37,8 +52,10 @@ class CypherMirror extends React.Component {
     theme: 'light' // optional, should be light or dark, defaults to light
   };
 
-
-
+  /**
+   * Displays the cypher editor panel as well as the clear and execute icons
+   * @returns Rendered component
+   */
   render() {
     return (
       <>

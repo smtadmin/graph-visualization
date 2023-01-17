@@ -1,23 +1,53 @@
 import React from 'react';
 import { ForceGraph3D } from 'react-force-graph';
-// import SpriteText from 'three-spritetext';
 
+/**
+ * List of colors for the nodes on the graph
+ */
 const colors = ["green", "#3d5a80", "#98c1d9", "#e0fbfc", "#ee6c4d", "#293241"]
+
+/**
+ * Force Graph component for rendering
+ */
 let fg={};
+
+/****************************************************************************
+ * <b>Title</b>: Graph.jsx
+ * <b>Project</b>: graph-visualization
+ * <b>Description: </b> Utilizes the React Force Graph compnent to build and 
+ * display the graph nodes and relationships.  Utilizing the 3D view for this component
+ * <b>Copyright:</b> Copyright (c) 2021
+ * <b>Company:</b> Silicon Mountain Technologies
+ * 
+ * @author James Camire
+ * @version 1.0
+ * @since January 3, 2022
+ * @updates:
+ ****************************************************************************/
 class Graph extends React.Component {
 
+    /**
+     * Initiualizes the graph with the graph data and callbacks
+     * @param {*} props 
+     */
     constructor(props) {
         super(props);
-        this.state = { data: null, onNodeClick: props.onNodeClick, onLinkClick: props.onLinkClick, height:props.height };
+        this.state = { data: null, onNodeClick: props.onNodeClick, onLinkClick: props.onLinkClick};
         this.fgRef = React.createRef();
     }
 
+    /**
+     * Modifies the node charge strength to provide better spacing between the nodes
+     */
     componentDidMount() {
         fg = this.fgRef.current;
         fg.d3Force('charge').strength(-1000);
     }
 
-
+    /**
+     * Confiures and builds the graph component
+     * @returns Force Graph component with all properties assigned
+     */
     displayGraph() {
         return (
             <>
@@ -60,8 +90,11 @@ class Graph extends React.Component {
         )
     }
 
+    /**
+     * Renders the graph component or a message depending on if data exists or not
+     * @returns Component
+     */
     render() {
-        //let elHeight = document.getElementById('inner-row-1').clientHeight
         return (
             <div>{this.props.data && this.props.data.nodes ? this.displayGraph() : <div className="graph-label">Submit a Cypher command</div>}</div>
 

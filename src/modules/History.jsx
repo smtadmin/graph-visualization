@@ -4,8 +4,26 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import parse from "html-react-parser";
 
+/****************************************************************************
+ * <b>Title</b>: History.jsx
+ * <b>Project</b>: graph-visualization
+ * <b>Description: </b> Displays a list of previous commands and adds a click 
+ * event to each so the command can be rerun
+ * <b>Copyright:</b> Copyright (c) 2021
+ * <b>Company:</b> Silicon Mountain Technologies
+ * 
+ * @author James Camire
+ * @version 1.0
+ * @since January 3, 2022
+ * @updates:
+ ****************************************************************************/
 class History extends React.Component {
 
+    /**
+     * Formats each row in the list of items to be displayed
+     * @param {*} items Set of elements to be displayed
+     * @returns Collection of ListItem components
+     */
     getDisplayItems = (items) => {
         let itemList = [];
         items.forEach((val, index) => {
@@ -32,6 +50,10 @@ class History extends React.Component {
 
     }
 
+    /**
+     * Builds the list of history commands
+     * @returns List of commands
+     */
     render() {
         return (
             <div className="history-wrapper">

@@ -1,8 +1,24 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 
+/****************************************************************************
+ * <b>Title</b>: GridDisplay.jsx
+ * <b>Project</b>: graph-visualization
+ * <b>Description: </b> Data grid to display the graph data in a grid
+ * <b>Copyright:</b> Copyright (c) 2021
+ * <b>Company:</b> Silicon Mountain Technologies
+ * 
+ * @author James Camire
+ * @version 1.0
+ * @since January 3, 2022
+ * @updates:
+ ****************************************************************************/
 class GridDisplay extends React.Component {
 
+    /**
+     * Builds the field information for each column in the grid
+     * @returns Column definition for the grid
+     */
     getColumns = () => {
         return [
             { field: 'id', headerName: 'ServiceID', width:400, flex: 3 },
@@ -30,6 +46,11 @@ class GridDisplay extends React.Component {
         ];
     }
 
+    /**
+     * Renders the grid utilizing the data that's passed in and the column 
+     * definition defined in the getCOlumns method
+     * @returns Material UI data grid
+     */
     render() {
         return (
             <div style={{ height: '100%', width: '100%' }}>

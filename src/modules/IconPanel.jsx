@@ -8,9 +8,10 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
 /****************************************************************************
- * <b>Title</b>: BrowserLayout.jsx.java
+ * <b>Title</b>: IconPanel.jsx
  * <b>Project</b>: graph-visualization
- * <b>Description: </b> Main display/controller for the APM graph display
+ * <b>Description: </b> Displays a panel of icons next to the data panel that 
+ * allows for switching between graph, dag, grid and text views
  * <b>Copyright:</b> Copyright (c) 2021
  * <b>Company:</b> Silicon Mountain Technologies
  * 
@@ -30,6 +31,10 @@ class IconPanel extends React.Component {
         this.state = { dagDirection : props.dagDirection }
     }
 
+    /**
+     * Builds the select picker for the DAG
+     * @returns Select compnent with display options for the DAG
+     */
     getDagSelector = () => {
         if (this.props.graphType === "DAG") {
             return (
@@ -53,6 +58,10 @@ class IconPanel extends React.Component {
         } 
     }
 
+    /**
+     * Builds all of the icons and their data/callbacks
+     * @returns Rendered Icon Panel
+     */
     render() {
         return (
             <>
